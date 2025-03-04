@@ -8,7 +8,7 @@ namespace Repositories.Contracts
 {
     public interface IRepositoryBase<T>
     {
-        IQueryable<T> GetAll();
+        IQueryable<T> GetAll(bool trackChanges);
         IQueryable<T> GetByCondition(System.Linq.Expressions.Expression<Func<T, bool>> expression, bool trackChanges);
         void Create(T entity);
         void Update(T entity);
