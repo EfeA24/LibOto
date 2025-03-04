@@ -16,6 +16,7 @@ namespace Entities.Models
         public string UserId { get; set; } = null!;
         [ForeignKey(nameof(UserId))]
         public User User { get; set; } = null!;
+        public bool IsApproved { get; set; }
 
         public DateTime RentalDate { get; set; }
         public DateTime? ReturnDate { get; set; }
