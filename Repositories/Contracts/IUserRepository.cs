@@ -10,7 +10,7 @@ namespace Repositories.Contracts
     public interface IUserRepository : IRepositoryBase<User>
     {
         IQueryable<User> GetAllUsers(bool trackChanges);
-        User GetUserbyId(string userId, bool trackChanges);
+        User GetUserById(string userId, bool trackChanges);
         void CreateUser(User user);
         void UpdateUser(User user);
         void DeleteUser(User user);

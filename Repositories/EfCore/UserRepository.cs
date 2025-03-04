@@ -31,7 +31,7 @@ namespace Repositories.EfCore
 
         }
 
-        public User GetUserbyId(string userId, bool trackChanges)
+        public User GetUserById(string userId, bool trackChanges)
         {
             return GetByCondition(x => x.Id == userId, trackChanges)
                 .SingleOrDefault();
