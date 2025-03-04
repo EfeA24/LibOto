@@ -59,8 +59,14 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult GetAllRoles()
         {
-            var roles = _roleManager.Roles;
-            return Ok(roles);
+            try
+            {var roles = _roleManager.Roles;
+                return Ok(roles); 
+            }
+            catch
+            {
+                return NotFound("There isn't any Role saved");
+            }
         }
 
         [HttpDelete("{roleName}")]
@@ -82,7 +88,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("assign")]
-        public async Task<IActionResult> AssignRoleToUser([FromBody] AssignRoleModel model)
+        public async Task<IActionResult> AssignRoleToUser([FromBody] AssignRole model)
         {
             if (model == null || string.IsNullOrWhiteSpace(model.UserId) || string.IsNullOrWhiteSpace(model.RoleName))
             {

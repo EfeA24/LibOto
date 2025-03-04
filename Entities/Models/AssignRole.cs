@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repositories.EfCore
+namespace Entities.Models
 {
-    public class AssignRoleModel
+    public class AssignRole
     {
         public string UserId { get; set; }
         public string RoleName { get; set; }
