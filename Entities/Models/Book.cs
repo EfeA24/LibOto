@@ -20,7 +20,7 @@ namespace Entities.Models
         public string? Description { get; set; }
         [Required]
         public int TotalPages { get; set; }
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         [ForeignKey("CategoryId")]
         public Category Categories { get; set; } = null!;
