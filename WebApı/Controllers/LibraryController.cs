@@ -10,139 +10,82 @@ namespace WebApı.Controllers
     {
         private readonly HttpClient _httpClient;
 
-        public LibraryController(HttpClient httpClient)
+        public LibraryController(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClient = httpClientFactory.CreateClient();
         }
 
-        public async Task<IActionResult> Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
 
         public async Task<IActionResult> Books()
         {
-            var books = await _httpClient.GetFromJsonAsync<IEnumerable<Book>>("https://localhost:7194/api/books");
-            return View(books);
-        }
-
-        public async Task<IActionResult> Categories()
-        {
-            var categories = await _httpClient.GetFromJsonAsync<IEnumerable<Category>>("https://localhost:7194/api/categories");
-            return View(categories);
-        }
-
-        public async Task<IActionResult> Rentals()
-        {
-            var rentals = await _httpClient.GetFromJsonAsync<IEnumerable<Rental>>("https://localhost:7194/api/rentals");
-            return View(rentals);
-        }
-
-        public async Task<IActionResult> Users()
-        {
-            var users = await _httpClient.GetFromJsonAsync<IEnumerable<User>>("https://localhost:7194/api/users");
-            return View(users);
+            try
+            {
+                var books = await _httpClient.GetFromJsonAsync<IEnumerable<Book>>("https://localhost:7194/Library/books");
+                return View(books);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error fetching books.";
+                return View(Enumerable.Empty<Book>());
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateBook(Book book)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(book);
+            try
             {
-                var response = await _httpClient.PostAsJsonAsync("https://localhost:7194/api/books", book);
+                var response = await _httpClient.PostAsJsonAsync("https://localhost:7194/Library/books", book);
                 if (response.IsSuccessStatusCode)
                 {
+                    TempData["SuccessMessage"] = "Book added successfully!";
                     return RedirectToAction(nameof(Books));
                 }
             }
-            return View(book);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateCategory(Category category)
-        {
-            if (ModelState.IsValid)
+            catch (Exception ex)
             {
-                var response = await _httpClient.PostAsJsonAsync("https://localhost:7194/api/categories", category);
-                if (response.IsSuccessStatusCode)
-                {
-                    return RedirectToAction(nameof(Categories));
-                }
+                TempData["ErrorMessage"] = "Error creating book.";
             }
-            return View(category);
+            return View(book);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateBook(Book book)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(book);
+            try
             {
-                var response = await _httpClient.PutAsJsonAsync($"https://localhost:7194/api/books/{book.BookId}", book);
+                var response = await _httpClient.PutAsJsonAsync($"https://localhost:7194/Library/books/{book.BookId}", book);
                 if (response.IsSuccessStatusCode)
                 {
+                    TempData["SuccessMessage"] = "Book updated successfully!";
                     return RedirectToAction(nameof(Books));
                 }
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error updating book.";
             }
             return View(book);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateCategory(Category category)
-        {
-            if (ModelState.IsValid)
-            {
-                var response = await _httpClient.PutAsJsonAsync($"https://localhost:7194/api/categories/{category.CategoryId}", category);
-                if (response.IsSuccessStatusCode)
-                {
-                    return RedirectToAction(nameof(Categories));
-                }
-            }
-            return View(category);
-        }
-
-        [HttpPost]
         public async Task<IActionResult> DeleteBook(int bookId)
         {
-            var response = await _httpClient.DeleteAsync($"https://localhost:7194/api/books/{bookId}");
-            if (response.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction(nameof(Books));
-            }
-            return BadRequest();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteCategory(int categoryId)
-        {
-            var response = await _httpClient.DeleteAsync($"https://localhost:7194/api/categories/{categoryId}");
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction(nameof(Categories));
-            }
-            return BadRequest();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UpdateRental(Rental rental)
-        {
-            if (ModelState.IsValid)
-            {
-                var response = await _httpClient.PutAsJsonAsync($"https://localhost:7194/api/rentals/{rental.RentId}", rental);
+                var response = await _httpClient.DeleteAsync($"https://localhost:7194/Library/books/{bookId}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction(nameof(Rentals));
+                    TempData["SuccessMessage"] = "Book deleted successfully!";
+                    return RedirectToAction(nameof(Books));
                 }
             }
-            return View(rental);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteRental(int rentalId)
-        {
-            var response = await _httpClient.DeleteAsync($"https://localhost:7194/api/rentals/{rentalId}");
-            if (response.IsSuccessStatusCode)
+            catch (Exception ex)
             {
-                return RedirectToAction(nameof(Rentals));
+                TempData["ErrorMessage"] = "Error deleting book.";
             }
             return BadRequest();
         }
@@ -150,47 +93,21 @@ namespace WebApı.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateUser(User user)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(user);
+            try
             {
-                var response = await _httpClient.PutAsJsonAsync($"https://localhost:7194/api/users/{user.FullName}", user);
+                var response = await _httpClient.PutAsJsonAsync($"https://localhost:7194/Library/users/{user.Id}", user);
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction(nameof(Users));
+                    TempData["SuccessMessage"] = "User updated successfully!";
+                    return RedirectToAction(nameof(User));
                 }
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error updating user.";
             }
             return View(user);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteUser(string userId)
-        {
-            var response = await _httpClient.DeleteAsync($"https://localhost:7194/api/users/{userId}");
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction(nameof(Users));
-            }
-            return BadRequest();
-        }
     }
 }
-
-/*       <div class="card">
-            <h3>Available Books</h3>
-            <ul>
-                @foreach (var book in Model.Books)
-                {
-                    <li>@book.Title by @book.Author</li>
-                }
-            </ul>
-        </div>
-
-        <div class="card">
-            <h3>Categories</h3>
-            <ul>
-                @foreach (var category in Model.Categories)
-                {
-                    <li>@category.CategoryName</li>
-                }
-            </ul>
-        </div>
-*/
