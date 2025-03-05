@@ -1,0 +1,79 @@
+﻿@page
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Library Automation System</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            margin: 0 15px;
+            color: #fff;
+            text-decoration: none;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        h1 {
+            color: #333;
+        }
+        .card {
+            background: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background: #007bff;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Library Automation System</h1>
+        <nav>
+            <a asp-page="/Index">Home</a>
+            <a asp-controller="Library" asp-action="Books">Books</a>
+            <a asp-controller="Library" asp-action="Categories">Categories</a>
+            <a asp-controller="Library" asp-action="Rentals">Rentals</a>
+            <a asp-controller="Library" asp-action="Users">Users</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Welcome to the Library!</h2>
+        <p>This is the home page of the library automation system. Here you can manage books, categories, rentals, and users.</p>
+
+
+    </div>
+</body>
+</html>

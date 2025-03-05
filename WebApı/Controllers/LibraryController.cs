@@ -15,6 +15,11 @@ namespace WebApı.Controllers
             _httpClient = httpClient;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Books()
         {
             var books = await _httpClient.GetFromJsonAsync<IEnumerable<Book>>("https://localhost:7194/api/books");
@@ -168,3 +173,24 @@ namespace WebApı.Controllers
         }
     }
 }
+
+/*       <div class="card">
+            <h3>Available Books</h3>
+            <ul>
+                @foreach (var book in Model.Books)
+                {
+                    <li>@book.Title by @book.Author</li>
+                }
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Categories</h3>
+            <ul>
+                @foreach (var category in Model.Categories)
+                {
+                    <li>@category.CategoryName</li>
+                }
+            </ul>
+        </div>
+*/
