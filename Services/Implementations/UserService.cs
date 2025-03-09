@@ -19,7 +19,7 @@ namespace Services.Implementations
         public User CreateUser(User user)
         {
             _unitOfWork.User.CreateUser(user);
-            _unitOfWork.Save(); // Commit changes
+            _unitOfWork.Save();
             return user;
         }
 
@@ -32,7 +32,7 @@ namespace Services.Implementations
             }
 
             _unitOfWork.User.DeleteUser(user);
-            _unitOfWork.Save(); // Commit changes
+            _unitOfWork.Save();
         }
 
         public IEnumerable<User> GetAllUsers(bool trackChanges)

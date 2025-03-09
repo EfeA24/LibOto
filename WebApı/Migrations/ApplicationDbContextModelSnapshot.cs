@@ -8,7 +8,7 @@ using Repositories.EfCore;
 
 #nullable disable
 
-namespace WebApı.Migrations
+namespace WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -21,6 +21,55 @@ namespace WebApı.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Entities.Models.AssignRole", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("AssignRole");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            Id = "f5f3ef61-031c-4e8c-8299-969fb07ff061",
+                            RoleName = "Admin",
+                            UserId = "3"
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            Id = "43d297c3-c20c-4bba-9fa9-dfeda4210128",
+                            RoleName = "Librarian",
+                            UserId = "2"
+                        });
+                });
 
             modelBuilder.Entity("Entities.Models.Book", b =>
                 {
@@ -184,7 +233,7 @@ namespace WebApı.Migrations
                             RentId = 1,
                             BookId = 1,
                             IsApproved = true,
-                            RentalDate = new DateTime(2025, 3, 5, 2, 41, 33, 103, DateTimeKind.Local).AddTicks(8868),
+                            RentalDate = new DateTime(2025, 3, 9, 22, 31, 55, 378, DateTimeKind.Local).AddTicks(3329),
                             UserId = "1"
                         },
                         new
@@ -192,7 +241,7 @@ namespace WebApı.Migrations
                             RentId = 2,
                             BookId = 2,
                             IsApproved = true,
-                            RentalDate = new DateTime(2025, 3, 5, 2, 41, 33, 103, DateTimeKind.Local).AddTicks(8879),
+                            RentalDate = new DateTime(2025, 3, 9, 22, 31, 55, 378, DateTimeKind.Local).AddTicks(3343),
                             UserId = "2"
                         });
                 });
@@ -257,14 +306,14 @@ namespace WebApı.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f0cb7783-f122-4c33-b59c-d63627582709",
+                            ConcurrencyStamp = "14d0ab32-12a3-491b-acf6-4c00a2a986fc",
                             Email = "john.doe@example.com",
                             EmailConfirmed = true,
                             FullName = "John Doe",
                             LockoutEnabled = false,
                             NormalizedEmail = "JOHN.DOE@EXAMPLE.COM",
                             NormalizedUserName = "JOHN.DOE",
-                            PasswordHash = "hashed_password_1",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBtcEWsh0gBXANqEqZh4rxGkerzuNS4P2SgzJv867Qsb2rmmulVymlb6phCZmJusCw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "stamp_1",
                             TwoFactorEnabled = false,
@@ -274,18 +323,35 @@ namespace WebApı.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ba17a789-0b46-4476-8d00-3976615c8af3",
-                            Email = "jane.smith@example.com",
+                            ConcurrencyStamp = "2d600cba-a85a-40ea-b20f-afe2543dc2b4",
+                            Email = "librarian@gmail.com",
                             EmailConfirmed = true,
                             FullName = "Jane Smith",
                             LockoutEnabled = false,
-                            NormalizedEmail = "JANE.SMITH@EXAMPLE.COM",
+                            NormalizedEmail = "LIBRARIANH@GMAIL.COM",
                             NormalizedUserName = "JANE.SMITH",
-                            PasswordHash = "hashed_password_2",
+                            PasswordHash = "AQAAAAIAAYagAAAAENyZG3zC0PruVJ6Cb/OGiICmygy2rGArHwBUkoWkERN5eqltH8pBWmehthVCoFDwXQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "stamp_2",
                             TwoFactorEnabled = false,
-                            UserName = "jane.smith"
+                            UserName = "librarian"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "99550c3a-aa73-419f-ad41-cf1b3a390834",
+                            Email = "efeaydeskin@gmail.com",
+                            EmailConfirmed = true,
+                            FullName = "Efe Aydeskin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EFEAYDESKIN@GMAIL.COM",
+                            NormalizedUserName = "EFE.AYDESKIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAEP790cO27Q4lkv1nTJl19SrcIl/SyiM9a58ulekcmqlrJwSrwB1O94BmCwi3/6ilFQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "stamp_3",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
                         });
                 });
 

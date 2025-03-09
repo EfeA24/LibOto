@@ -9,11 +9,11 @@ using Repositories.EfCore;
 
 #nullable disable
 
-namespace WebApı.Migrations
+namespace WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250304234133_SeedData")]
-    partial class SeedData
+    [Migration("20250309192330_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,55 @@ namespace WebApı.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Entities.Models.AssignRole", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("AssignRole");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            Id = "81223ca2-2ed0-48a2-a454-7f0e4fbfdcee",
+                            RoleName = "Admin",
+                            UserId = "3"
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            Id = "11c4d902-5ee1-4030-a3eb-ded51092abed",
+                            RoleName = "Librarian",
+                            UserId = "2"
+                        });
+                });
 
             modelBuilder.Entity("Entities.Models.Book", b =>
                 {
@@ -187,7 +236,7 @@ namespace WebApı.Migrations
                             RentId = 1,
                             BookId = 1,
                             IsApproved = true,
-                            RentalDate = new DateTime(2025, 3, 5, 2, 41, 33, 103, DateTimeKind.Local).AddTicks(8868),
+                            RentalDate = new DateTime(2025, 3, 9, 22, 23, 30, 328, DateTimeKind.Local).AddTicks(8114),
                             UserId = "1"
                         },
                         new
@@ -195,7 +244,7 @@ namespace WebApı.Migrations
                             RentId = 2,
                             BookId = 2,
                             IsApproved = true,
-                            RentalDate = new DateTime(2025, 3, 5, 2, 41, 33, 103, DateTimeKind.Local).AddTicks(8879),
+                            RentalDate = new DateTime(2025, 3, 9, 22, 23, 30, 328, DateTimeKind.Local).AddTicks(8124),
                             UserId = "2"
                         });
                 });
@@ -233,6 +282,10 @@ namespace WebApı.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -260,13 +313,14 @@ namespace WebApı.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f0cb7783-f122-4c33-b59c-d63627582709",
+                            ConcurrencyStamp = "4fc5f7eb-d12b-4148-adfb-2f4f80f01730",
                             Email = "john.doe@example.com",
                             EmailConfirmed = true,
                             FullName = "John Doe",
                             LockoutEnabled = false,
                             NormalizedEmail = "JOHN.DOE@EXAMPLE.COM",
                             NormalizedUserName = "JOHN.DOE",
+                            Password = "123456",
                             PasswordHash = "hashed_password_1",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "stamp_1",
@@ -277,18 +331,37 @@ namespace WebApı.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ba17a789-0b46-4476-8d00-3976615c8af3",
-                            Email = "jane.smith@example.com",
+                            ConcurrencyStamp = "734a5a33-30d8-40e9-84b6-6b95bc964ec6",
+                            Email = "librarian@gmail.com",
                             EmailConfirmed = true,
                             FullName = "Jane Smith",
                             LockoutEnabled = false,
-                            NormalizedEmail = "JANE.SMITH@EXAMPLE.COM",
+                            NormalizedEmail = "LIBRARIANH@GMAIL.COM",
                             NormalizedUserName = "JANE.SMITH",
-                            PasswordHash = "hashed_password_2",
+                            Password = "123456",
+                            PasswordHash = "string",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "stamp_2",
                             TwoFactorEnabled = false,
-                            UserName = "jane.smith"
+                            UserName = "librarian"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "37e698e8-c12a-43a3-bd61-1beccc00b62a",
+                            Email = "efeaydeskin@gmail.com",
+                            EmailConfirmed = true,
+                            FullName = "Efe Aydeskin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EFEAYDESKIN@GMAIL.COM",
+                            NormalizedUserName = "EFE.AYDESKIN",
+                            Password = "123456",
+                            PasswordHash = "string",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "stamp_3",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
                         });
                 });
 

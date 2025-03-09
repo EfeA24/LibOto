@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repositories.EfCore
@@ -33,14 +34,56 @@ namespace Repositories.EfCore
                 new Book { BookId = 4, Title = "The Diary of a Young Girl", Author = "Anne Frank", Description = "The diary of a Jewish girl during World War II.", TotalPages = 283, CategoryId = 4, DatePublished = new DateTime(1947, 6, 25), IsRented = false }
             );
 
+            var passwordHasher = new PasswordHasher<User>();
+
             modelBuilder.Entity<User>().HasData(
-                new User { Id = "1", UserName = "john.doe", FullName = "John Doe", NormalizedUserName = "JOHN.DOE", Email = "john.doe@example.com", NormalizedEmail = "JOHN.DOE@EXAMPLE.COM", EmailConfirmed = true, PasswordHash = "hashed_password_1", SecurityStamp = "stamp_1" },
-                new User { Id = "2", UserName = "jane.smith", FullName = "Jane Smith", NormalizedUserName = "JANE.SMITH", Email = "jane.smith@example.com", NormalizedEmail = "JANE.SMITH@EXAMPLE.COM", EmailConfirmed = true, PasswordHash = "hashed_password_2", SecurityStamp = "stamp_2" }
+                new User
+                {
+                    Id = "1",
+                    UserName = "john.doe",
+                    FullName = "John Doe",
+                    NormalizedUserName = "JOHN.DOE",
+                    Email = "john.doe@example.com",
+                    NormalizedEmail = "JOHN.DOE@EXAMPLE.COM",
+                    EmailConfirmed = true,
+                    PasswordHash = passwordHasher.HashPassword(null, "123456"),
+                    SecurityStamp = "stamp_1"
+                },
+                new User
+                {
+                    Id = "2",
+                    UserName = "librarian",
+                    FullName = "Jane Smith",
+                    NormalizedUserName = "JANE.SMITH",
+                    Email = "librarian@gmail.com",
+                    NormalizedEmail = "LIBRARIANH@GMAIL.COM",
+                    EmailConfirmed = true,
+                    PasswordHash = passwordHasher.HashPassword(null, "123456"),
+                    SecurityStamp = "stamp_2"
+                },
+                new User
+                {
+                    Id = "3",
+                    UserName = "admin",
+                    FullName = "Efe Aydeskin",
+                    NormalizedUserName = "EFE.AYDESKIN",
+                    Email = "efeaydeskin@gmail.com",
+                    NormalizedEmail = "EFEAYDESKIN@GMAIL.COM",
+                    EmailConfirmed = true,
+                    PasswordHash = passwordHasher.HashPassword(null, "123456"),
+                    SecurityStamp = "stamp_3"
+                }
             );
+
 
             modelBuilder.Entity<Rental>().HasData(
                 new Rental { RentId = 1, BookId = 1, UserId = "1", IsApproved = true, RentalDate = DateTime.Now, ReturnDate = null },
                 new Rental { RentId = 2, BookId = 2, UserId = "2", IsApproved = true, RentalDate = DateTime.Now, ReturnDate = null }
+            );
+
+            modelBuilder.Entity<AssignRole>().HasData(
+                new AssignRole {RoleId=1, UserId = "3", RoleName = "Admin" },
+                new AssignRole {RoleId=2, UserId = "2", RoleName = "Librarian"}
             );
         }
     }

@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{DFF3E0C6-EB93-4217-AFEF-9FC5E25249D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApı", "WebApı\WebApı.csproj", "{2285C7D5-F282-418C-A2EC-9F354FE7629C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApı\WebApi.csproj", "{2285C7D5-F282-418C-A2EC-9F354FE7629C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{0E75225A-4067-4B2F-BD7B-D116C55AA863}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{3B23C2F9-E9C6-4C1B-A9BD-A09575161D82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation.csproj", "{EEC3863D-C29C-4ED3-B7BD-EDFEFE84CD72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3B23C2F9-E9C6-4C1B-A9BD-A09575161D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B23C2F9-E9C6-4C1B-A9BD-A09575161D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B23C2F9-E9C6-4C1B-A9BD-A09575161D82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEC3863D-C29C-4ED3-B7BD-EDFEFE84CD72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEC3863D-C29C-4ED3-B7BD-EDFEFE84CD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEC3863D-C29C-4ED3-B7BD-EDFEFE84CD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEC3863D-C29C-4ED3-B7BD-EDFEFE84CD72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
