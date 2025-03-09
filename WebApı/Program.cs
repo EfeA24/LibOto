@@ -7,7 +7,6 @@ using WebApi.ContextFactory;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Servisleri yapýlandýr
 RepositoryContextFactory.ConfigureServices(builder.Services, builder.Configuration);
 
 builder.Services.AddControllers();
@@ -16,7 +15,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Middleware konfigürasyonu
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -24,7 +22,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
 app.Run();

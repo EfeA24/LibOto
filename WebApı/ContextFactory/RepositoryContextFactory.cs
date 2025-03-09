@@ -36,7 +36,17 @@ namespace WebApi.ContextFactory
                 options.UseSqlServer(connectionString));
 
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Auth/Login";
+                options.AccessDeniedPath = "/Auth/AccessDenied";
+                options.LogoutPath = "/Auth/Logout";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
+            });
 
             services.Configure<IdentityOptions>(options =>
             {

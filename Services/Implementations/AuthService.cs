@@ -43,7 +43,7 @@ namespace Services
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties { IsPersistent = true };
 
-            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+            await _httpContextAccessor.HttpContext.SignInAsync(IdentityConstants.ApplicationScheme,
                                                                new ClaimsPrincipal(claimsIdentity),
                                                                authProperties);
 
